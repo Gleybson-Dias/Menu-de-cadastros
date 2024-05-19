@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
-
+#include <ctype.h>
+#include <stdlib.h>
 
 //estrutura para armazenar as informações de um aluno
 struct aluno {
@@ -63,16 +64,27 @@ void buscarAlunoPorNome(struct aluno alunos[], int numAluno, char nomeBusca[]) {
 
 }
 
+int isNumeric(const char *str) {
+	for (int i = 0; i < strlen(str); i++) {
+		if (!isdigit(str[i])) {
+			return 0;
+		}
+	}
+	return 1;
+}
+
+
 
 
 int main() {
 
 	//definindo meu arrays
-	struct aluno alunos[3];
+	struct aluno alunos[50];
 
 	//definindo variaveis
 	int numAlunos = 0;
 	int opcao;
+	char opcaoStr[10];
 	char nomeBusca[50];
 
 
@@ -84,7 +96,19 @@ int main() {
 		printf("3 - Buscar aluno por nome\n");
 		printf("0 - sair\n");
 		printf("opcao: ");
-		scanf("%d", &opcao);
+		scanf("%s", &opcaoStr);
+
+
+		if (isNumeric(opcaoStr)) {
+
+			opcao = atoi(opcaoStr);
+
+		}
+		else {
+
+			opcao = -1;
+
+		}
 
 		//definindo cada funcionalidade do menu
 		switch (opcao) {
